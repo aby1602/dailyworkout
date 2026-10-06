@@ -1,5 +1,7 @@
 # DailyWorkout
 
+live website link: https://aby1602.github.io/dailyworkout/
+
 A personal interactive fitness tracker with muscle-based workout selection, guided circuits, workout logging, rest timers, weekly streaks and progress tracking.
 
 ## Features
