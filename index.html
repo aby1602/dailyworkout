@@ -108,12 +108,25 @@ h1{letter-spacing:-.035em}
   .header-brand{font-size:23px}
   .header-welcome{font-size:10px}
 }
+
+[hidden]{display:none!important}
+#authGate{position:fixed;inset:0;background:#171b1e;z-index:100;display:grid;place-items:center;padding:16px}
+.authbox{width:min(420px,100%);border:1px solid #48535b;background:#242a2e;border-radius:18px;padding:26px}
+.authbox h2{font:800 29px Manrope}.authbox p{font-size:12px;color:#bac2c7;line-height:1.6}
+.authbox input{width:100%;padding:12px;border:1px solid #515e66;color:white;background:#151a1e;border-radius:9px;margin:6px 0;font-size:14px}
+.authbox button,#logout{padding:11px;background:#8693db;border:0;border-radius:8px;color:#101316;font-weight:700;cursor:pointer;margin:6px 4px 0 0}
+#authError{color:#ff9b98!important}.account-tools{display:flex;gap:12px;align-items:center}
+#logout{padding:7px 10px;font-size:11px}.recommend{border:1px solid #54634f;padding:14px;background:#263229;border-radius:12px;margin:14px 0;font-size:13px;line-height:1.6}
+.set-labels{display:grid;grid-template-columns:30px 1fr 1fr 70px;gap:6px;color:#adb8bf;font-size:10px;margin-top:12px}
+.history-row{padding:10px;border:1px solid #3e484d;border-radius:8px;margin:6px 0;font-size:12px;display:flex;justify-content:space-between;gap:10px}
+#workHistory{margin:15px 0;font-size:13px}
+@media(max-width:500px){.header-welcome{display:none}.set-labels{grid-template-columns:25px 1fr 1fr 55px}}
 </style><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgcng9IjE0IiBmaWxsPSIjMjUyYjJmIi8+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Q5ZGRkZiIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cGF0aCBkPSJNMjIgMzJoMjAiLz4KPHBhdGggZD0iTTE3IDI0djE2TTIyIDIxdjIyTTQ3IDI0djE2TTQyIDIxdjIyIi8+CjxwYXRoIGQ9Ik0xMiAyOHY4TTUyIDI4djgiLz4KPC9nPgo8L3N2Zz4=">
-</head><body><header class="topbar">
+</head><body><div id="authGate"><div class="authbox"><h2>BODY LAB</h2><p>Sign in or create a local account.</p><form id="authForm"><input id="authUser" placeholder="Username" aria-label="Username" autocomplete="username" required minlength="3" maxlength="30" pattern="[A-Za-z0-9_-]+"><input id="authPass" placeholder="Password (8+ characters)" aria-label="Password" type="password" autocomplete="current-password" required minlength="8"><button id="login" type="submit">Log in</button><button id="register" type="button">Create account</button></form><p id="authError" role="alert"></p><p>Accounts and history are stored only on this browser, not synced to other devices. This is not secure server authentication. Clearing site data removes accounts and workouts.</p></div></div><header class="topbar">
   <div class="header-brand">
     <span class="header-mark">BODY</span><span class="header-mark accent">LAB</span>
   </div>
-  <div class="header-welcome">Welcome back, <strong>Abi</strong></div>
+  <div class="account-tools"><div class="header-welcome">Welcome back, <strong id="userLabel">Abi</strong></div><button id="logout">Log out</button></div>
 </header><main><h1>Choose your focus. <em>Own the session.</em></h1><p class="sub">Select a muscle group to generate a structured session with warm-up, strength training and a finisher.</p><section class="week-card">
 <div class="week-copy"><span>THIS WEEK</span><h3><b id="visitStreak">0</b> day visit streak</h3>
 <p><strong id="workoutStreak">0</strong> day workout streak · visits and completed workouts are tracked separately.</p>
@@ -127,8 +140,8 @@ h1{letter-spacing:-.035em}
 <div data-day="6"><i>SAT</i><b>—</b><small></small></div>
 <div data-day="0"><i>SUN</i><b>—</b><small></small></div>
 </div>
-<div class="week-summary"><span><b id="weekSessions">0</b><small>SESSIONS</small></span><span><b id="weekVolume">0</b><small>KG VOLUME</small></span><span><b id="weekMinutes">0</b><small>MINUTES</small></span></div>
-</section><div class="grid"><section><div class="tabs"><button class="on" data-view="front">FRONT</button><button data-view="back">BACK</button></div><svg id="front" class="body on" viewBox="0 0 360 590"><g class="base"><circle cx="180" cy="55" r="38"/><path d="M151 92Q180 108 209 92L224 126Q257 141 273 177L246 196L229 169L225 286Q210 326 205 346H155Q150 326 135 286L131 169L114 196L87 177Q103 141 136 126Z"/><path d="M113 184Q96 237 83 303Q80 323 96 329Q111 329 117 306L137 211Z"/><path d="M247 184Q264 237 277 303Q280 323 264 329Q249 329 243 306L223 211Z"/><path d="M157 344Q145 399 139 470L135 553Q145 568 158 554L178 469L179 346Z"/><path d="M203 344Q215 399 221 470L225 553Q215 568 202 554L182 469L181 346Z"/></g><g class="m"><path data-m="Shoulders" class="muscle muscle-shoulders" d="M136 127Q110 134 100 159Q110 175 130 169L143 139Z"/><path data-m="Shoulders" class="muscle muscle-shoulders" d="M224 127Q250 134 260 159Q250 175 230 169L217 139Z"/><path data-m="Chest" class="muscle muscle-chest" d="M143 137Q159 121 178 132V186Q151 189 137 169Z"/><path data-m="Chest" class="muscle muscle-chest" d="M217 137Q201 121 182 132V186Q209 189 223 169Z"/><path data-m="Biceps" class="muscle muscle-biceps" d="M112 180Q98 205 99 241Q111 252 123 238L135 184Z"/><path data-m="Biceps" class="muscle muscle-biceps" d="M248 180Q262 205 261 241Q249 252 237 238L225 184Z"/><path data-m="Forearms" class="muscle muscle-forearms" d="M98 245L84 303Q82 321 96 326L115 249Z"/><path data-m="Forearms" class="muscle muscle-forearms" d="M262 245L276 303Q278 321 264 326L245 249Z"/><path data-m="Abs" class="muscle muscle-abs" d="M157 192Q180 184 203 192L205 278Q180 293 155 278Z"/><path data-m="Quads" class="muscle muscle-quads" d="M157 348Q145 389 143 452Q159 463 177 447L178 348Z"/><path data-m="Quads" class="muscle muscle-quads" d="M203 348Q215 389 217 452Q201 463 183 447L182 348Z"/><path data-m="Calves" class="muscle muscle-calves" d="M143 462Q137 503 138 544Q150 554 160 538L174 469Z"/><path data-m="Calves" class="muscle muscle-calves" d="M217 462Q223 503 222 544Q210 554 200 538L186 469Z"/></g></svg><svg id="back" class="body" viewBox="0 0 360 590"><g class="base"><circle cx="180" cy="55" r="38"/><path d="M151 92Q180 108 209 92L224 126Q257 141 273 177L246 196L229 169L225 286Q210 326 205 346H155Q150 326 135 286L131 169L114 196L87 177Q103 141 136 126Z"/><path d="M113 184Q96 237 83 303Q80 323 96 329Q111 329 117 306L137 211Z"/><path d="M247 184Q264 237 277 303Q280 323 264 329Q249 329 243 306L223 211Z"/><path d="M157 344Q145 399 139 470L135 553Q145 568 158 554L178 469L179 346Z"/><path d="M203 344Q215 399 221 470L225 553Q215 568 202 554L182 469L181 346Z"/></g><g class="m"><path data-m="Traps" class="muscle muscle-traps" d="M153 118L180 137L207 118L219 158Q180 174 141 158Z"/><path data-m="Rear Shoulders" class="muscle muscle-rear-shoulders" d="M136 128Q109 136 101 160L131 170L145 140Z"/><path data-m="Rear Shoulders" class="muscle muscle-rear-shoulders" d="M224 128Q251 136 259 160L229 170L215 140Z"/><path data-m="Triceps" class="muscle muscle-triceps" d="M111 181Q99 210 101 242L124 240L136 184Z"/><path data-m="Triceps" class="muscle muscle-triceps" d="M249 181Q261 210 259 242L236 240L224 184Z"/><path data-m="Back" class="muscle muscle-back" d="M145 166Q180 181 215 166L224 258Q210 304 180 319Q150 304 136 258Z"/><path data-m="Glutes" class="muscle muscle-glutes" d="M155 285Q168 274 178 286V344Q157 347 147 324Z"/><path data-m="Glutes" class="muscle muscle-glutes" d="M205 285Q192 274 182 286V344Q203 347 213 324Z"/><path data-m="Hamstrings" class="muscle muscle-hamstrings" d="M157 348Q146 395 146 450L176 447L178 348Z"/><path data-m="Hamstrings" class="muscle muscle-hamstrings" d="M203 348Q214 395 214 450L184 447L182 348Z"/><path data-m="Calves" class="muscle muscle-calves" d="M143 462Q137 503 138 544L160 538L174 469Z"/><path data-m="Calves" class="muscle muscle-calves" d="M217 462Q223 503 222 544L200 538L186 469Z"/></g></svg></section><aside id="panel"><div id="empty"><b>✦</b><h2>Choose a muscle</h2><p>Tap directly on the body.</p></div><div id="details" hidden><small>SELECTED AREA</small><h2 id="name"></h2><div class="levels"><button data-l="beginner">BEGINNER<small>Learn & build</small></button><button data-l="intermediate" class="on">INTERMEDIATE<small>Progress & grow</small></button><button data-l="expert">EXPERT<small>Push performance</small></button></div><div class="ai" id="ai"></div><div class="circuitflow"><span>01 <b>WARM-UP</b></span><i>→</i><span>02 <b>STRENGTH</b></span><i>→</i><span>03 <b>FINISHER</b></span></div><div id="plan"></div><button id="start">START WORKOUT →</button></div></aside></div></main><div id="session" hidden><div class="session"><button id="close">← TRAIN</button><p class="tag" id="sl"></p><h2 id="st"></h2><div class="stats"><b id="clock">00:00</b><b id="sd">0/0 sets</b><b id="vol">0 kg</b></div><div class="bar"><i id="prog"></i></div><div id="work"></div><button id="finish" disabled>FINISH SESSION</button></div></div><div id="rest" hidden><div><p class="tag">REST</p><b id="rn">60</b><small>SECONDS</small><button id="skip">SKIP REST</button></div></div><script>const D={
+<div class="week-summary"><span><b id="weekSessions">0</b><small>SESSIONS</small></span><span><b id="weekMinutes">0</b><small>MINUTES</small></span></div>
+</section><div class="recommend" id="nextFocus" hidden></div><details id="workHistory"><summary>Workout history</summary><div id="historyList"></div></details><div class="grid"><section><div class="tabs"><button class="on" data-view="front">FRONT</button><button data-view="back">BACK</button></div><svg id="front" class="body on" viewBox="0 0 360 590"><g class="base"><circle cx="180" cy="55" r="38"/><path d="M151 92Q180 108 209 92L224 126Q257 141 273 177L246 196L229 169L225 286Q210 326 205 346H155Q150 326 135 286L131 169L114 196L87 177Q103 141 136 126Z"/><path d="M113 184Q96 237 83 303Q80 323 96 329Q111 329 117 306L137 211Z"/><path d="M247 184Q264 237 277 303Q280 323 264 329Q249 329 243 306L223 211Z"/><path d="M157 344Q145 399 139 470L135 553Q145 568 158 554L178 469L179 346Z"/><path d="M203 344Q215 399 221 470L225 553Q215 568 202 554L182 469L181 346Z"/></g><g class="m"><path data-m="Shoulders" class="muscle muscle-shoulders" d="M136 127Q110 134 100 159Q110 175 130 169L143 139Z"/><path data-m="Shoulders" class="muscle muscle-shoulders" d="M224 127Q250 134 260 159Q250 175 230 169L217 139Z"/><path data-m="Chest" class="muscle muscle-chest" d="M143 137Q159 121 178 132V186Q151 189 137 169Z"/><path data-m="Chest" class="muscle muscle-chest" d="M217 137Q201 121 182 132V186Q209 189 223 169Z"/><path data-m="Biceps" class="muscle muscle-biceps" d="M112 180Q98 205 99 241Q111 252 123 238L135 184Z"/><path data-m="Biceps" class="muscle muscle-biceps" d="M248 180Q262 205 261 241Q249 252 237 238L225 184Z"/><path data-m="Forearms" class="muscle muscle-forearms" d="M98 245L84 303Q82 321 96 326L115 249Z"/><path data-m="Forearms" class="muscle muscle-forearms" d="M262 245L276 303Q278 321 264 326L245 249Z"/><path data-m="Abs" class="muscle muscle-abs" d="M157 192Q180 184 203 192L205 278Q180 293 155 278Z"/><path data-m="Quads" class="muscle muscle-quads" d="M157 348Q145 389 143 452Q159 463 177 447L178 348Z"/><path data-m="Quads" class="muscle muscle-quads" d="M203 348Q215 389 217 452Q201 463 183 447L182 348Z"/><path data-m="Calves" class="muscle muscle-calves" d="M143 462Q137 503 138 544Q150 554 160 538L174 469Z"/><path data-m="Calves" class="muscle muscle-calves" d="M217 462Q223 503 222 544Q210 554 200 538L186 469Z"/></g></svg><svg id="back" class="body" viewBox="0 0 360 590"><g class="base"><circle cx="180" cy="55" r="38"/><path d="M151 92Q180 108 209 92L224 126Q257 141 273 177L246 196L229 169L225 286Q210 326 205 346H155Q150 326 135 286L131 169L114 196L87 177Q103 141 136 126Z"/><path d="M113 184Q96 237 83 303Q80 323 96 329Q111 329 117 306L137 211Z"/><path d="M247 184Q264 237 277 303Q280 323 264 329Q249 329 243 306L223 211Z"/><path d="M157 344Q145 399 139 470L135 553Q145 568 158 554L178 469L179 346Z"/><path d="M203 344Q215 399 221 470L225 553Q215 568 202 554L182 469L181 346Z"/></g><g class="m"><path data-m="Traps" class="muscle muscle-traps" d="M153 118L180 137L207 118L219 158Q180 174 141 158Z"/><path data-m="Rear Shoulders" class="muscle muscle-rear-shoulders" d="M136 128Q109 136 101 160L131 170L145 140Z"/><path data-m="Rear Shoulders" class="muscle muscle-rear-shoulders" d="M224 128Q251 136 259 160L229 170L215 140Z"/><path data-m="Triceps" class="muscle muscle-triceps" d="M111 181Q99 210 101 242L124 240L136 184Z"/><path data-m="Triceps" class="muscle muscle-triceps" d="M249 181Q261 210 259 242L236 240L224 184Z"/><path data-m="Back" class="muscle muscle-back" d="M145 166Q180 181 215 166L224 258Q210 304 180 319Q150 304 136 258Z"/><path data-m="Glutes" class="muscle muscle-glutes" d="M155 285Q168 274 178 286V344Q157 347 147 324Z"/><path data-m="Glutes" class="muscle muscle-glutes" d="M205 285Q192 274 182 286V344Q203 347 213 324Z"/><path data-m="Hamstrings" class="muscle muscle-hamstrings" d="M157 348Q146 395 146 450L176 447L178 348Z"/><path data-m="Hamstrings" class="muscle muscle-hamstrings" d="M203 348Q214 395 214 450L184 447L182 348Z"/><path data-m="Calves" class="muscle muscle-calves" d="M143 462Q137 503 138 544L160 538L174 469Z"/><path data-m="Calves" class="muscle muscle-calves" d="M217 462Q223 503 222 544L200 538L186 469Z"/></g></svg></section><aside id="panel"><div id="empty"><b>✦</b><h2>Choose a muscle</h2><p>Tap directly on the body.</p></div><div id="details" hidden><small>SELECTED AREA</small><h2 id="name"></h2><div class="levels"><button data-l="beginner">BEGINNER<small>Learn & build</small></button><button data-l="intermediate" class="on">INTERMEDIATE<small>Progress & grow</small></button><button data-l="expert">EXPERT<small>Push performance</small></button></div><div class="ai" id="ai"></div><div class="circuitflow"><span>01 <b>WARM-UP</b></span><i>→</i><span>02 <b>STRENGTH</b></span><i>→</i><span>03 <b>FINISHER</b></span></div><div id="plan"></div><button id="start">START WORKOUT →</button></div></aside></div></main><div id="session" hidden><div class="session"><button id="close">← TRAIN</button><p class="tag" id="sl"></p><h2 id="st"></h2><div class="stats"><b id="clock">00:00</b><b id="sd">0/0 sets</b></div><div class="bar"><i id="prog"></i></div><div id="work"></div><button id="finish" disabled>FINISH SESSION</button></div></div><div id="rest" hidden><div><p class="tag">REST</p><b id="rn">60</b><small>SECONDS</small><button id="skip">SKIP REST</button></div></div><script>const D={
 Chest:["Bench Press","Incline Dumbbell Press","Cable Fly","Push-Up","Chest Press Machine"],
 Shoulders:["Dumbbell Shoulder Press","Lateral Raise","Arnold Press","Cable Lateral Raise","Face Pull"],
 Biceps:["EZ-Bar Curl","Incline Dumbbell Curl","Hammer Curl","Cable Curl","Preacher Curl"],
@@ -152,12 +165,49 @@ const cardio=["Incline Treadmill Walk","Exercise Bike","Elliptical","Rowing Mach
 const finishers={Chest:"Push-Up Finisher",Shoulders:"Light Lateral Raise Burnout",Biceps:"Curl 21s",Forearms:"Farmer Hold",Abs:"Mountain Climbers",Quads:"Bodyweight Squat Finisher",Calves:"Calf Raise Burnout",Traps:"Farmer Carry","Rear Shoulders":"Band Pull-Apart Burnout",Triceps:"Close-Grip Push-Ups",Back:"Light Rowing Finisher",Glutes:"Glute Bridge Burnout",Hamstrings:"Bodyweight Good Morning"};
 let m,l="intermediate",done,total,vol,sec,clock,ri;
 const $=x=>document.querySelector(x),$$=x=>[...document.querySelectorAll(x)];
-const STORE="dailyworkout_history_v1";
-const VISIT_STORE="dailyworkout_visits_v1";
-function history(){try{return JSON.parse(localStorage.getItem(STORE)||"[]")}catch(e){return []}}
-function saveHistory(h){try{localStorage.setItem(STORE,JSON.stringify(h))}catch(e){}}
-function visits(){try{return JSON.parse(localStorage.getItem(VISIT_STORE)||"[]")}catch(e){return []}}
-function saveVisits(v){try{localStorage.setItem(VISIT_STORE,JSON.stringify(v))}catch(e){}}
+
+const ACCOUNTS="bodylab_accounts_v2",ACTIVE="bodylab_active_v2";
+let user=null,sessionStarted=0,setLogs=[];
+const json=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key)||"null")??fallback}catch{return fallback}};
+const storageKey=type=>"bodylab_"+type+"_v2_"+user;
+async function passwordHash(pass,salt){
+ const key=await crypto.subtle.importKey("raw",new TextEncoder().encode(pass),"PBKDF2",false,["deriveBits"]);
+ const bits=await crypto.subtle.deriveBits({name:"PBKDF2",salt:Uint8Array.from(salt.match(/../g).map(x=>parseInt(x,16))),iterations:150000,hash:"SHA-256"},key,256);
+ return Array.from(new Uint8Array(bits),x=>x.toString(16).padStart(2,"0")).join("")
+}
+function activate(username){user=username;localStorage.setItem(ACTIVE,user);$("#authGate").hidden=true;$("#userLabel").textContent=user;recordVisit();renderWeek();renderHistory();renderNext()}
+async function auth(create){
+ const name=$("#authUser").value.trim().toLowerCase(),pass=$("#authPass").value,accounts=json(ACCOUNTS,{});
+ if(!/^[a-z0-9_-]{3,30}$/.test(name)||pass.length<8){$("#authError").textContent="Use a 3–30 character username and password of at least 8 characters.";return}
+ if(!crypto?.subtle){$("#authError").textContent="This feature requires HTTPS.";return}
+ $("#login").disabled=$("#register").disabled=true;
+ try{
+  const exists=accounts[name];
+  if(create&&exists)throw Error("That username already exists on this browser.");
+  if(!create&&!exists)throw Error("Account not found. Create an account first.");
+  if(create){
+   const salt=Array.from(crypto.getRandomValues(new Uint8Array(16)),x=>x.toString(16).padStart(2,"0")).join("");
+   accounts[name]={salt,hash:await passwordHash(pass,salt)};
+   localStorage.setItem(ACCOUNTS,JSON.stringify(accounts));
+   if(Object.keys(accounts).length===1){
+    const oldH=localStorage.getItem("dailyworkout_history_v1"),oldV=localStorage.getItem("dailyworkout_visits_v1");
+    if(oldH)localStorage.setItem("bodylab_history_v2_"+name,oldH);
+    if(oldV)localStorage.setItem("bodylab_visits_v2_"+name,oldV);
+   }
+  }else if(await passwordHash(pass,exists.salt)!==exists.hash)throw Error("Incorrect password.");
+  activate(name);$("#authPass").value="";$("#authError").textContent="";
+ }catch(e){$("#authError").textContent=e.message||"Unable to access account."}
+ finally{$("#login").disabled=$("#register").disabled=false}
+}
+$("#authForm").onsubmit=e=>{e.preventDefault();auth(false)};
+$("#register").onclick=()=>auth(true);
+$("#logout").onclick=()=>{if(!$("#session").hidden&&!confirm("Log out and discard the unfinished workout?"))return;clearInterval(clock);closeRest();$("#session").hidden=true;user=null;localStorage.removeItem(ACTIVE);$("#authGate").hidden=false};
+function restoreAuth(){const name=localStorage.getItem(ACTIVE);if(name&&json(ACCOUNTS,{})[name])activate(name)}
+
+function history(){return user?json(storageKey("history"),[]):[]}
+function saveHistory(h){localStorage.setItem(storageKey("history"),JSON.stringify(h))}
+function visits(){return user?json(storageKey("visits"),[]):[]}
+function saveVisits(v){localStorage.setItem(storageKey("visits"),JSON.stringify(v))}
 function dayKey(d=new Date()){let y=d.getFullYear(),mo=String(d.getMonth()+1).padStart(2,"0"),da=String(d.getDate()).padStart(2,"0");return `${y}-${mo}-${da}`}
 function recordVisit(){let v=visits(),k=dayKey();if(!v.includes(k)){v.push(k);saveVisits(v)}}
 function weekStart(d=new Date()){let x=new Date(d.getFullYear(),d.getMonth(),d.getDate()),day=x.getDay(),diff=day===0?-6:1-day;x.setDate(x.getDate()+diff);x.setHours(0,0,0,0);return x}
@@ -176,17 +226,16 @@ function renderWeek(){
    el.querySelector("b").textContent=worked.has(k)?"✓":visited.has(k)?"•":String(d.getDate());
  });
  $("#weekSessions").textContent=weekly.length;
- $("#weekVolume").textContent=Math.round(weekly.reduce((s,x)=>s+(x.volume||0),0)).toLocaleString();
+
  $("#weekMinutes").textContent=Math.round(weekly.reduce((s,x)=>s+(x.seconds||0),0)/60);
  $("#visitStreak").textContent=calcStreak(v);
  $("#workoutStreak").textContent=calcStreak(h.map(x=>x.date));
 }
-function recordWorkout(){
- let h=history(),k=dayKey(),existing=h.find(x=>x.date===k);
- let entry={date:k,muscle:m,level:l,volume:Math.round(vol),seconds:sec,completedAt:new Date().toISOString()};
- if(existing){existing.volume=(existing.volume||0)+entry.volume;existing.seconds=(existing.seconds||0)+entry.seconds;existing.muscle=entry.muscle;existing.level=entry.level;existing.completedAt=entry.completedAt}else h.push(entry);
- saveHistory(h);renderWeek();
-}
+function recordWorkout(){const h=history();h.push({date:dayKey(),muscle:m,level:l,seconds:sec,sets:setLogs,completedAt:new Date().toISOString()});saveHistory(h);renderWeek();renderHistory();renderNext()}
+const rotation={Abs:"Shoulders",Shoulders:"Quads",Chest:"Back",Back:"Quads",Biceps:"Triceps",Triceps:"Quads",Quads:"Chest",Glutes:"Chest",Hamstrings:"Shoulders",Calves:"Back",Traps:"Quads",Forearms:"Quads","Rear Shoulders":"Quads"};
+const nextMuscle=muscle=>rotation[muscle]||"Shoulders";
+function renderNext(){const h=history(),latest=h.at(-1),el=$("#nextFocus");el.hidden=!latest;if(latest)el.textContent="NEXT WORKOUT · After "+latest.muscle+", consider "+nextMuscle(latest.muscle)+" next session to rotate muscle groups. Take recovery days when needed."}
+function renderHistory(){const el=$("#historyList");el.replaceChildren();const h=history().slice().reverse();if(!h.length){el.textContent="No completed sessions yet.";return}h.slice(0,30).forEach(x=>{const div=document.createElement("div");div.className="history-row";const left=document.createElement("span"),right=document.createElement("span");left.textContent=x.date+" · "+x.muscle+" · "+x.level;right.textContent=Math.round((x.seconds||0)/60)+" min";div.append(left,right);el.append(div)})}
 
 const yt=q=>"https://www.youtube.com/results?search_query="+encodeURIComponent(q+" exercise form tutorial");
 $$("[data-view]").forEach(b=>b.onclick=()=>{$$("[data-view]").forEach(x=>x.classList.toggle("on",x===b));$$(".body").forEach(x=>x.classList.toggle("on",x.id===b.dataset.view))});
@@ -198,19 +247,29 @@ $("#plan").innerHTML=`<div class="ex"><span>W</span><p><small class="phase">WARM
 e.map((x,i)=>`<div class="ex"><span>0${i+1}</span><p><small class="phase">STRENGTH CIRCUIT</small><b>${x}</b><small>${a.s} sets · ${a.r} reps · ${a.rest}s rest</small></p><em>${l.toUpperCase()}</em><a class="demo" target="_blank" rel="noopener" href="${yt(x)}">▶ DEMO</a></div>`).join("")+
 `<div class="ex"><span>F</span><p><small class="phase">FINISHER</small><b>${fin}</b><small>${a.finish} · controlled effort</small></p><em>FINISH</em><a class="demo" target="_blank" rel="noopener" href="${yt(fin)}">▶ DEMO</a></div>`}
 function weight(i){let base=[40,20,15,10,8][i];return Math.round(base*L[l].w*2)/2}
-$("#start").onclick=()=>{let a=L[l],e=D[m].slice(0,a.n),warm=cardio[(Object.keys(D).indexOf(m)+a.n)%cardio.length],fin=finishers[m];done=0;vol=0;sec=0;total=a.n*a.s+2;$("#sl").textContent=m.toUpperCase()+" CIRCUIT · "+l.toUpperCase();$("#st").textContent=m+" Full Session";$("#sd").textContent=`0/${total} blocks`;$("#vol").textContent="0 kg";$("#prog").style.width=0;$("#finish").disabled=true;
-$("#work").innerHTML=`<div class="workex cardio"><div class="workex-head"><div><p class="tag">WARM-UP · CARDIO</p><h3>${warm}</h3></div><a class="demo" target="_blank" rel="noopener" href="${yt(warm)}">▶ WATCH DEMO</a></div><p>${a.warm} at an easy-to-moderate pace. You should feel warmer, not exhausted.</p><div class="set"><span>1</span><input value="${parseInt(a.warm)}" type="number"><input value="1" type="number"><button>DONE</button></div></div>`+
-e.map((x,i)=>`<div class="workex"><div class="workex-head"><div><p class="tag">STRENGTH CIRCUIT · 0${i+1}</p><h3>${x}</h3></div><a class="demo" target="_blank" rel="noopener" href="${yt(x)}">▶ WATCH DEMO</a></div><p>${a.s} sets · ${a.r} reps · ${a.rest}s rest</p>${Array.from({length:a.s},(_,j)=>`<div class="set"><span>${j+1}</span><input type="number" value="${weight(i)}" step=".5"><input type="number" value="${l==="beginner"?12:l==="expert"?8:10}"><button>DONE</button></div>`).join("")}</div>`).join("")+
-`<div class="workex finisher"><div class="workex-head"><div><p class="tag">FINISHER</p><h3>${fin}</h3></div><a class="demo" target="_blank" rel="noopener" href="${yt(fin)}">▶ WATCH DEMO</a></div><p>${a.finish} · keep the movement controlled</p><div class="set"><span>1</span><input value="${parseInt(a.finish)}" type="number"><input value="1" type="number"><button>DONE</button></div></div>`;
-$("#session").hidden=false;attach();clearInterval(clock);clock=setInterval(()=>$("#clock").textContent=fmt(++sec),1000)};
-function attach(){$$("#work .set button").forEach(b=>b.onclick=()=>{if(b.classList.contains("done"))return;let row=b.parentElement,ins=row.querySelectorAll("input"),isSpecial=row.closest(".cardio,.finisher");if(!isSpecial)vol+=(+ins[0].value||0)*(+ins[1].value||0);done++;b.classList.add("done");b.textContent="✓";ins.forEach(i=>i.disabled=true);$("#sd").textContent=`${done}/${total} blocks`;$("#vol").textContent=Math.round(vol)+" kg";$("#prog").style.width=done/total*100+"%";$("#finish").disabled=done<total;if(done<total&&!isSpecial)rest()})}
-function rest(){let n=L[l].rest;$("#rn").textContent=n;$("#rest").hidden=false;clearInterval(ri);ri=setInterval(()=>{if(--n<=0)closeRest();$("#rn").textContent=Math.max(0,n)},1000)}
-function closeRest(){clearInterval(ri);$("#rest").hidden=true}$("#skip").onclick=closeRest;$("#close").onclick=()=>{clearInterval(clock);$("#session").hidden=true};$("#finish").onclick=()=>{clearInterval(clock);recordWorkout();$("#session").hidden=true;showComplete()};function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
+$("#start").onclick=()=>{let a=L[l],e=D[m].slice(0,a.n),warm=cardio[(Object.keys(D).indexOf(m)+a.n)%cardio.length],fin=finishers[m];done=0;vol=0;sec=0;setLogs=[];sessionStarted=Date.now();total=a.n*a.s+2;$("#sl").textContent=m.toUpperCase()+" CIRCUIT · "+l.toUpperCase();$("#st").textContent=m+" Full Session";$("#sd").textContent=`0/${total} blocks`;$("#prog").style.width=0;$("#finish").disabled=true;
+$("#work").innerHTML=`<div class="workex cardio"><div class="workex-head"><div><p class="tag">WARM-UP · CARDIO</p><h3>${warm}</h3></div><a class="demo" target="_blank" rel="noopener" href="${yt(warm)}">▶ WATCH DEMO</a></div><p>${a.warm} at an easy-to-moderate pace. You should feel warmer, not exhausted.</p><div class="set-labels"><span>SET</span><span>MIN</span><span>EFFORT (1–10)</span><span></span></div><div class="set"><span>1</span><input placeholder="min" type="number" min="0" step="1"><input placeholder="effort" type="number" min="1" max="10"><button>DONE</button></div></div>`+
+e.map((x,i)=>`<div class="workex"><div class="workex-head"><div><p class="tag">STRENGTH CIRCUIT · 0${i+1}</p><h3>${x}</h3></div><a class="demo" target="_blank" rel="noopener" href="${yt(x)}">▶ WATCH DEMO</a></div><p>${a.s} sets · ${a.r} reps · ${a.rest}s rest</p><div class="set-labels"><span>SET</span><span>WEIGHT (KG)</span><span>REPS</span><span></span></div>${Array.from({length:a.s},(_,j)=>`<div class="set"><span>${j+1}</span><input type="number" placeholder="kg" min="0" step=".5"><input type="number" placeholder="reps" min="1"><button>DONE</button></div>`).join("")}</div>`).join("")+
+`<div class="workex finisher"><div class="workex-head"><div><p class="tag">FINISHER</p><h3>${fin}</h3></div><a class="demo" target="_blank" rel="noopener" href="${yt(fin)}">▶ WATCH DEMO</a></div><p>${a.finish} · keep the movement controlled</p><div class="set-labels"><span>SET</span><span>MIN</span><span>EFFORT (1–10)</span><span></span></div><div class="set"><span>1</span><input placeholder="min" type="number" min="0"><input placeholder="effort" type="number" min="1" max="10"><button>DONE</button></div></div>`;
+$("#session").hidden=false;attach();clearInterval(clock);clock=setInterval(updateTimer,1000);updateTimer()};
+function updateTimer(){sec=Math.floor((Date.now()-sessionStarted)/1000);$("#clock").textContent=fmt(sec)}
+document.addEventListener("visibilitychange",()=>{if(!$("#session").hidden)updateTimer()});
+function attach(){$$("#work .set button").forEach(b=>b.onclick=()=>{
+ if(b.classList.contains("done"))return;
+ const row=b.parentElement,inputs=[...row.querySelectorAll("input")],special=!!row.closest(".cardio,.finisher");
+ const a=inputs[0].value.trim(),c=inputs[1].value.trim();
+ if(a===""||c===""||+a<0||+c<=0||(special&&+c>10)){alert(special?"Enter minutes and effort (1–10).":"Enter weight (kg) and reps.");return}
+ setLogs.push({exercise:row.closest(".workex").querySelector("h3").textContent,weightKg:special?null:+a,reps:special?null:+c,minutes:special?+a:null,effort:special?+c:null});
+ done++;b.classList.add("done");b.textContent="✓";inputs.forEach(i=>i.disabled=true);$("#sd").textContent=done+"/"+total+" blocks";$("#prog").style.width=done/total*100+"%";$("#finish").disabled=done<total;if(done<total&&!special)rest();
+})}
+
+function rest(){let n=15;$("#rn").textContent=n;$("#rest").hidden=false;clearInterval(ri);ri=setInterval(()=>{if(--n<=0)closeRest();$("#rn").textContent=Math.max(0,n)},1000)}
+function closeRest(){clearInterval(ri);$("#rest").hidden=true}$("#skip").onclick=closeRest;$("#close").onclick=()=>{if(!confirm("Discard unfinished session?"))return;clearInterval(clock);closeRest();$("#session").hidden=true};$("#finish").onclick=()=>{updateTimer();clearInterval(clock);closeRest();recordWorkout();$("#session").hidden=true;showComplete()};function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
 function showComplete(){
  let modal=document.createElement("div");modal.className="complete-card";
- modal.innerHTML=`<div class="complete-inner"><div class="complete-check">✓</div><h2>Session complete.</h2><p>${m} · ${l.charAt(0).toUpperCase()+l.slice(1)} circuit has been added to your weekly streak.</p><div class="complete-stats"><span><b>${done}</b><small>BLOCKS</small></span><span><b>${Math.round(vol).toLocaleString()}kg</b><small>VOLUME</small></span><span><b>${fmt(sec)}</b><small>TIME</small></span></div><button>BACK TO BODY LAB</button></div>`;
+ modal.innerHTML=`<div class="complete-inner"><div class="complete-check">✓</div><h2>Session complete.</h2><p>${m} · ${l.charAt(0).toUpperCase()+l.slice(1)} circuit has been added to your weekly streak.</p><div class="complete-stats"><span><b>${done}</b><small>BLOCKS</small></span><span><b>${new Set(setLogs.map(x=>x.exercise)).size}</b><small>EXERCISES</small></span><span><b>${fmt(sec)}</b><small>TIME</small></span></div><div class="recommend">TOMORROW · After ${m}, consider ${nextMuscle(m)}. Allow recovery if you are sore or fatigued.</div><p>${setLogs.length} blocks logged and saved to this account.</p><button>BACK TO BODY LAB</button></div>`;
  document.body.appendChild(modal);modal.querySelector("button").onclick=()=>modal.remove();
 }
-recordVisit();renderWeek();
+restoreAuth();
 </script><footer class="site-footer">Designed &amp; built by Abi</footer>
 </body></html>
