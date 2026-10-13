@@ -115,14 +115,14 @@ h1{letter-spacing:-.035em}
 .authbox h2{font:800 29px Manrope}.authbox p{font-size:12px;color:#bac2c7;line-height:1.6}
 .authbox input{width:100%;padding:12px;border:1px solid #515e66;color:white;background:#151a1e;border-radius:9px;margin:6px 0;font-size:14px}
 .authbox button,#logout{padding:11px;background:#8693db;border:0;border-radius:8px;color:#101316;font-weight:700;cursor:pointer;margin:6px 4px 0 0}
-#authError{color:#ff9b98!important}.account-tools{display:flex;gap:12px;align-items:center}
+#guest{display:block;width:100%;margin-top:12px!important;background:transparent!important;color:#d4dade!important;border:1px solid #59636a!important}#authError{color:#ff9b98!important}.account-tools{display:flex;gap:12px;align-items:center}
 #logout{padding:7px 10px;font-size:11px}.recommend{border:1px solid #54634f;padding:14px;background:#263229;border-radius:12px;margin:14px 0;font-size:13px;line-height:1.6}
 .set-labels{display:grid;grid-template-columns:30px 1fr 1fr 70px;gap:6px;color:#adb8bf;font-size:10px;margin-top:12px}
 .history-row{padding:10px;border:1px solid #3e484d;border-radius:8px;margin:6px 0;font-size:12px;display:flex;justify-content:space-between;gap:10px}
 #workHistory{margin:15px 0;font-size:13px}
 @media(max-width:500px){.header-welcome{display:none}.set-labels{grid-template-columns:25px 1fr 1fr 55px}}
 </style><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgcng9IjE0IiBmaWxsPSIjMjUyYjJmIi8+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Q5ZGRkZiIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cGF0aCBkPSJNMjIgMzJoMjAiLz4KPHBhdGggZD0iTTE3IDI0djE2TTIyIDIxdjIyTTQ3IDI0djE2TTQyIDIxdjIyIi8+CjxwYXRoIGQ9Ik0xMiAyOHY4TTUyIDI4djgiLz4KPC9nPgo8L3N2Zz4=">
-</head><body><div id="authGate"><div class="authbox"><h2>BODY LAB</h2><p>Sign in or create a local account.</p><form id="authForm"><input id="authUser" placeholder="Username" aria-label="Username" autocomplete="username" required minlength="3" maxlength="30" pattern="[A-Za-z0-9_-]+"><input id="authPass" placeholder="Password (8+ characters)" aria-label="Password" type="password" autocomplete="current-password" required minlength="8"><button id="login" type="submit">Log in</button><button id="register" type="button">Create account</button></form><p id="authError" role="alert"></p><p>Accounts and history are stored only on this browser, not synced to other devices. This is not secure server authentication. Clearing site data removes accounts and workouts.</p></div></div><header class="topbar">
+</head><body><div id="authGate"><div class="authbox"><h2>BODY LAB</h2><p>Sign in or create a local account.</p><form id="authForm"><input id="authUser" placeholder="Username" aria-label="Username" autocomplete="username" required minlength="3" maxlength="30" pattern="[A-Za-z0-9_-]+"><input id="authPass" placeholder="Password (8+ characters)" aria-label="Password" type="password" autocomplete="current-password" required minlength="8"><button id="login" type="submit">Log in</button><button id="register" type="button">Create account</button><button id="guest" type="button">Continue as guest</button></form><p id="authError" role="alert"></p><p>Guest mode lets you work out without signing in. Guest sessions are not saved. Accounts and history are stored only on this browser, not synced to other devices. This is not secure server authentication. Clearing site data removes accounts and workouts.</p></div></div><header class="topbar">
   <div class="header-brand">
     <span class="header-mark">BODY</span><span class="header-mark accent">LAB</span>
   </div>
@@ -167,7 +167,7 @@ let m,l="intermediate",done,total,vol,sec,clock,ri;
 const $=x=>document.querySelector(x),$$=x=>[...document.querySelectorAll(x)];
 
 const ACCOUNTS="bodylab_accounts_v2",ACTIVE="bodylab_active_v2";
-let user=null,sessionStarted=0,setLogs=[];
+let user=null,guestMode=false,sessionStarted=0,setLogs=[];
 const json=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key)||"null")??fallback}catch{return fallback}};
 const storageKey=type=>"bodylab_"+type+"_v2_"+user;
 async function passwordHash(pass,salt){
@@ -175,7 +175,7 @@ async function passwordHash(pass,salt){
  const bits=await crypto.subtle.deriveBits({name:"PBKDF2",salt:Uint8Array.from(salt.match(/../g).map(x=>parseInt(x,16))),iterations:150000,hash:"SHA-256"},key,256);
  return Array.from(new Uint8Array(bits),x=>x.toString(16).padStart(2,"0")).join("")
 }
-function activate(username){user=username;localStorage.setItem(ACTIVE,user);$("#authGate").hidden=true;$("#userLabel").textContent=user;recordVisit();renderWeek();renderHistory();renderNext()}
+function activate(username){guestMode=false;user=username;$("#logout").textContent="Log out";localStorage.setItem(ACTIVE,user);$("#authGate").hidden=true;$("#userLabel").textContent=user;recordVisit();renderWeek();renderHistory();renderNext()}
 async function auth(create){
  const name=$("#authUser").value.trim().toLowerCase(),pass=$("#authPass").value,accounts=json(ACCOUNTS,{});
  if(!/^[a-z0-9_-]{3,30}$/.test(name)||pass.length<8){$("#authError").textContent="Use a 3–30 character username and password of at least 8 characters.";return}
@@ -201,7 +201,8 @@ async function auth(create){
 }
 $("#authForm").onsubmit=e=>{e.preventDefault();auth(false)};
 $("#register").onclick=()=>auth(true);
-$("#logout").onclick=()=>{if(!$("#session").hidden&&!confirm("Log out and discard the unfinished workout?"))return;clearInterval(clock);closeRest();$("#session").hidden=true;user=null;localStorage.removeItem(ACTIVE);$("#authGate").hidden=false};
+$("#guest").onclick=()=>{guestMode=true;user=null;$("#authGate").hidden=true;$("#userLabel").textContent="Guest";$("#logout").textContent="Exit guest";renderWeek();renderHistory();renderNext()};
+$("#logout").onclick=()=>{if(!$("#session").hidden&&!confirm("Log out and discard the unfinished workout?"))return;clearInterval(clock);closeRest();$("#session").hidden=true;user=null;guestMode=false;$("#logout").textContent="Log out";localStorage.removeItem(ACTIVE);$("#authGate").hidden=false};
 function restoreAuth(){const name=localStorage.getItem(ACTIVE);if(name&&json(ACCOUNTS,{})[name])activate(name)}
 
 function history(){return user?json(storageKey("history"),[]):[]}
@@ -209,7 +210,7 @@ function saveHistory(h){localStorage.setItem(storageKey("history"),JSON.stringif
 function visits(){return user?json(storageKey("visits"),[]):[]}
 function saveVisits(v){localStorage.setItem(storageKey("visits"),JSON.stringify(v))}
 function dayKey(d=new Date()){let y=d.getFullYear(),mo=String(d.getMonth()+1).padStart(2,"0"),da=String(d.getDate()).padStart(2,"0");return `${y}-${mo}-${da}`}
-function recordVisit(){let v=visits(),k=dayKey();if(!v.includes(k)){v.push(k);saveVisits(v)}}
+function recordVisit(){if(guestMode)return;let v=visits(),k=dayKey();if(!v.includes(k)){v.push(k);saveVisits(v)}}
 function weekStart(d=new Date()){let x=new Date(d.getFullYear(),d.getMonth(),d.getDate()),day=x.getDay(),diff=day===0?-6:1-day;x.setDate(x.getDate()+diff);x.setHours(0,0,0,0);return x}
 function calcStreak(keys){
  let all=new Set(keys),now=new Date(),cursor=new Date(now.getFullYear(),now.getMonth(),now.getDate());
@@ -231,7 +232,7 @@ function renderWeek(){
  $("#visitStreak").textContent=calcStreak(v);
  $("#workoutStreak").textContent=calcStreak(h.map(x=>x.date));
 }
-function recordWorkout(){const h=history();h.push({date:dayKey(),muscle:m,level:l,seconds:sec,sets:setLogs,completedAt:new Date().toISOString()});saveHistory(h);renderWeek();renderHistory();renderNext()}
+function recordWorkout(){if(guestMode)return;const h=history();h.push({date:dayKey(),muscle:m,level:l,seconds:sec,sets:setLogs,completedAt:new Date().toISOString()});saveHistory(h);renderWeek();renderHistory();renderNext()}
 const rotation={Abs:"Shoulders",Shoulders:"Quads",Chest:"Back",Back:"Quads",Biceps:"Triceps",Triceps:"Quads",Quads:"Chest",Glutes:"Chest",Hamstrings:"Shoulders",Calves:"Back",Traps:"Quads",Forearms:"Quads","Rear Shoulders":"Quads"};
 const nextMuscle=muscle=>rotation[muscle]||"Shoulders";
 function renderNext(){const h=history(),latest=h.at(-1),el=$("#nextFocus");el.hidden=!latest;if(latest)el.textContent="NEXT WORKOUT · After "+latest.muscle+", consider "+nextMuscle(latest.muscle)+" next session to rotate muscle groups. Take recovery days when needed."}
@@ -267,7 +268,7 @@ function rest(){const deadline=Date.now()+15000;$("#rn").textContent=15;$("#rest
 function closeRest(){clearInterval(ri);$("#rest").hidden=true}$("#skip").onclick=closeRest;$("#close").onclick=()=>{if(!confirm("Discard unfinished session?"))return;clearInterval(clock);closeRest();$("#session").hidden=true};$("#finish").onclick=()=>{updateTimer();clearInterval(clock);closeRest();recordWorkout();$("#session").hidden=true;showComplete()};function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
 function showComplete(){
  let modal=document.createElement("div");modal.className="complete-card";
- modal.innerHTML=`<div class="complete-inner"><div class="complete-check">✓</div><h2>Session complete.</h2><p>${m} · ${l.charAt(0).toUpperCase()+l.slice(1)} circuit has been added to your weekly streak.</p><div class="complete-stats"><span><b>${done}</b><small>BLOCKS</small></span><span><b>${new Set(setLogs.map(x=>x.exercise)).size}</b><small>EXERCISES</small></span><span><b>${fmt(sec)}</b><small>TIME</small></span></div><div class="recommend">TOMORROW · After ${m}, consider ${nextMuscle(m)}. Allow recovery if you are sore or fatigued.</div><p>${setLogs.length} blocks logged and saved to this account.</p><button>BACK TO BODY LAB</button></div>`;
+ modal.innerHTML=`<div class="complete-inner"><div class="complete-check">✓</div><h2>Session complete.</h2><p>${m} · ${l.charAt(0).toUpperCase()+l.slice(1)} session is complete${guestMode?" (guest mode — not saved)":""}.</p><div class="complete-stats"><span><b>${done}</b><small>BLOCKS</small></span><span><b>${new Set(setLogs.map(x=>x.exercise)).size}</b><small>EXERCISES</small></span><span><b>${fmt(sec)}</b><small>TIME</small></span></div><div class="recommend">TOMORROW · After ${m}, consider ${nextMuscle(m)}. Allow recovery if you are sore or fatigued.</div><p>${setLogs.length} blocks logged${guestMode?" · Guest mode: not saved.":" and saved to this account."}</p><button>BACK TO BODY LAB</button></div>`;
  document.body.appendChild(modal);modal.querySelector("button").onclick=()=>modal.remove();
 }
 restoreAuth();
