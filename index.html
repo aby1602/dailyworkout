@@ -157,9 +157,9 @@ Glutes:["Hip Thrust","Romanian Deadlift","Cable Kickback","Bulgarian Split Squat
 Hamstrings:["Romanian Deadlift","Lying Leg Curl","Seated Leg Curl","Single-Leg RDL","Good Morning"]
 };
 const L={
-beginner:{n:3,s:2,r:"12–15",rest:45,w:.7,warm:"5 min",finish:"2 min",rounds:2},
-intermediate:{n:4,s:3,r:"8–12",rest:60,w:1,warm:"7 min",finish:"4 min",rounds:3},
-expert:{n:5,s:4,r:"6–10",rest:75,w:1.2,warm:"10 min",finish:"6 min",rounds:4}
+beginner:{n:3,s:2,r:"12–15",rest:15,w:.7,warm:"5 min",finish:"2 min",rounds:2},
+intermediate:{n:4,s:3,r:"8–12",rest:15,w:1,warm:"7 min",finish:"4 min",rounds:3},
+expert:{n:5,s:4,r:"6–10",rest:15,w:1.2,warm:"10 min",finish:"6 min",rounds:4}
 };
 const cardio=["Incline Treadmill Walk","Exercise Bike","Elliptical","Rowing Machine"];
 const finishers={Chest:"Push-Up Finisher",Shoulders:"Light Lateral Raise Burnout",Biceps:"Curl 21s",Forearms:"Farmer Hold",Abs:"Mountain Climbers",Quads:"Bodyweight Squat Finisher",Calves:"Calf Raise Burnout",Traps:"Farmer Carry","Rear Shoulders":"Band Pull-Apart Burnout",Triceps:"Close-Grip Push-Ups",Back:"Light Rowing Finisher",Glutes:"Glute Bridge Burnout",Hamstrings:"Bodyweight Good Morning"};
@@ -263,7 +263,7 @@ function attach(){$$("#work .set button").forEach(b=>b.onclick=()=>{
  done++;b.classList.add("done");b.textContent="✓";inputs.forEach(i=>i.disabled=true);$("#sd").textContent=done+"/"+total+" blocks";$("#prog").style.width=done/total*100+"%";$("#finish").disabled=done<total;if(done<total&&!special)rest();
 })}
 
-function rest(){let n=15;$("#rn").textContent=n;$("#rest").hidden=false;clearInterval(ri);ri=setInterval(()=>{if(--n<=0)closeRest();$("#rn").textContent=Math.max(0,n)},1000)}
+function rest(){const deadline=Date.now()+15000;$("#rn").textContent=15;$("#rest").hidden=false;clearInterval(ri);ri=setInterval(()=>{const remaining=Math.max(0,Math.ceil((deadline-Date.now())/1000));$("#rn").textContent=remaining;if(remaining<=0)closeRest()},250)}
 function closeRest(){clearInterval(ri);$("#rest").hidden=true}$("#skip").onclick=closeRest;$("#close").onclick=()=>{if(!confirm("Discard unfinished session?"))return;clearInterval(clock);closeRest();$("#session").hidden=true};$("#finish").onclick=()=>{updateTimer();clearInterval(clock);closeRest();recordWorkout();$("#session").hidden=true;showComplete()};function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
 function showComplete(){
  let modal=document.createElement("div");modal.className="complete-card";
